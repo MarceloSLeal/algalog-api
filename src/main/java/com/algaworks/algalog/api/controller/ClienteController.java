@@ -4,6 +4,7 @@ import com.algaworks.algalog.domain.model.Cliente;
 import com.algaworks.algalog.domain.repository.ClienteRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{clienteId}")
-    public ResponseEntity<Cliente> buscar (@PathVariable Long clienteId) {
+    public ResponseEntity<Cliente> buscar(@PathVariable Long clienteId) {
 
         return clienteRepository.findById(clienteId)
                 .map(ResponseEntity::ok)
@@ -36,12 +37,13 @@ public class ClienteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente adicionar(@RequestBody Cliente cliente) {
+    public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
         return clienteRepository.save(cliente);
     }
 
     @PutMapping("/{clienteId}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable Long clienteId, @RequestBody Cliente cliente) {
+    public ResponseEntity<Cliente> atualizar(@PathVariable Long clienteId,
+                                             @Valid @RequestBody Cliente cliente) {
         if (!clienteRepository.existsById(clienteId)) {
             return ResponseEntity.notFound().build();
         }
