@@ -1,7 +1,5 @@
 package com.algaworks.algalog.api.model.input;
 
-import com.algaworks.algalog.domain.model.Cliente;
-import com.algaworks.algalog.domain.model.Destinatario;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
